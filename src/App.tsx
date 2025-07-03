@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import DisplayTask from './components/DisplayTask'
 
 export interface taskInterface {
+  [keyof: string]: string | number | boolean
   id: number,
   complete: boolean, 
   task: string, 
@@ -34,7 +35,12 @@ const App = () => {
   }
 
   const handleSubmit = () => {
+    if (!currentTask.task) {
+      alert("Task cannot be empty")
+      return 
+    }
     setTask(prev => [...prev, {id: Math.random(), complete: false, ...currentTask}])
+    setCurrentTask({task: "", priority: 1})
   }
 
   return (
